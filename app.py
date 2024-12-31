@@ -5,10 +5,18 @@ from datetime import datetime as dt
 from docx import Document
 from docx.shared import Inches
 import os
+from doc_to_pdf import Pdf
 
 def start_driver():
     chrome_options = Options()
-    arguments = ['--lang=pt-BR', '--start-maximized', '--incognito']
+    arguments = [
+        '--lang=pt-BR',
+        '--start-maximized',
+        '--incognito',
+        '--ignore-certificate-errors',
+        '--disable-web-security',
+        '--allow-running-insecure-content'
+        ]
 
     for argument in arguments:
         chrome_options.add_argument(argument)
@@ -70,8 +78,13 @@ def main():
 
         # Salva o documento
         document.save('doc_cotacao.docx')
+        document_save= os.getcwd() + '/doc_cotacao.docx'
 
         print('Documento Word criado com sucesso!')
+        
+        #Transformando em pdf
+        pdf= Pdf()
+        pdf.word_para_pdf(document_save)
         
     finally:
         driver.quit()
