@@ -7,7 +7,7 @@ class Pdf():
             # Carrega o documento Word
             doc = aw.Document(caminho_docx)
             # Salva como PDF
-            caminho_pdf = os.path.join(os.getcwd(), '/cotacao_dolar.pdf')
+            caminho_pdf = os.getcwd() + '/cotacao_dolar.pdf'
             doc.save(caminho_pdf)
             print("Documento convertido com sucesso para PDF!")
         except Exception as e:
