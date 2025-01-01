@@ -5,7 +5,7 @@ from datetime import datetime as dt
 from docx import Document
 from docx.shared import Inches
 import os
-from doc_to_pdf import Pdf
+from docx2pdf import convert
 
 def start_driver():
     chrome_options = Options()
@@ -69,7 +69,6 @@ def main():
                                 Print da cotação atual:
                             ''')
 
-
         # Adiciona uma imagem (certifique-se de que a imagem existe no diretório)
         img = os.getcwd() + '/graphic.png'
         document.add_picture(img, width=Inches(2))
@@ -83,8 +82,12 @@ def main():
         print('Documento Word criado com sucesso!')
         
         #Transformando em pdf
-        pdf= Pdf()
-        pdf.word_para_pdf(document_save)
+        pdf= os.getcwd() + '/cotacao.pdf'
+        try:
+            convert(document_save, pdf)
+            print("Arquivo convertido com sucesso!")
+        except Exception as e:
+            print(f"Erro durante a conversão.")
         
     finally:
         driver.quit()
