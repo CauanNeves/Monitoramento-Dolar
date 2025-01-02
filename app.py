@@ -5,7 +5,6 @@ from datetime import datetime as dt
 from docx import Document
 from docx.shared import Inches
 import os
-from docx2pdf import convert
 
 def start_driver():
     chrome_options = Options()
@@ -77,17 +76,8 @@ def main():
 
         # Salva o documento
         document.save('doc_cotacao.docx')
-        document_save= os.getcwd() + '/doc_cotacao.docx'
 
         print('Documento Word criado com sucesso!')
-        
-        #Transformando em pdf
-        pdf= os.getcwd() + '/cotacao.pdf'
-        try:
-            convert(document_save, pdf)
-            print("Arquivo convertido com sucesso!")
-        except Exception as e:
-            print(f"Erro durante a conversão.")
         
     finally:
         driver.quit()
